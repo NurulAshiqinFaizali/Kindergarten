@@ -46,7 +46,7 @@
 					<small>
 						<i  style="color: #888;">(<?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
 						<br>
-						<a href="create_user.php" style="color: black;">Manage User</a>
+						<a href="view.php" style="color: black;">Manage User</a>
 						<br>
 						<a href="../login.php" style="color: red;">LOGOUT</a>
 
