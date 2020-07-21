@@ -44,13 +44,16 @@
 						<br>
 						<a href="section.php" style="color: blue;">SECTION REGISTRATION</a>
 						<br>
+						<a href="view.php" style="color: black;">SUBMITTED FORM</a>
+						<br>
 						<a href="index.php?logout='1'" style="color: red;">LOGOUT</a>
-
+						<br>
 					</small>
 
 				<?php endif ?>
 			</div>
 		</div>
+		
 	</div>
 </body>
 </html>
