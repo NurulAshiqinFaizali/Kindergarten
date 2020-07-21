@@ -7,8 +7,8 @@ $dbname = "multi_login";
 
 $con = new mysqli ($host, $dbusername, $dbpassword, $dbname);
 
-$id=$_REQUEST['fid'];
-$query = "SELECT * from fee where fid='".$id."'"; 
+$id=$_REQUEST['crid'];
+$query = "SELECT * from classroom where crid='".$id."'"; 
 $result = mysqli_query($con, $query) or die ( mysqli_error());
 $row = mysqli_fetch_assoc($result);
 ?>
@@ -36,11 +36,10 @@ $row = mysqli_fetch_assoc($result);
 $status = "";
 if(isset($_POST['new']) && $_POST['new']==1)
 {
-$id=$_POST['fid'];
-$edit_fic=$_POST['fic']; 
-$edit_fa=$_POST['fa']; 
-$edit_fs=$_POST['fs']; 
-$edit_fdate=$_POST['fdate']; 
+$id=$_POST['crid'];
+$edit_crn=$_POST['crn']; 
+$edit_ctid=$_POST['ctid']; 
+
 
 $host = "localhost";
 $dbusername = "root";
@@ -48,7 +47,7 @@ $dbpassword = "";
 $dbname = "multi_login";
 
 $con = new mysqli ($host, $dbusername, $dbpassword, $dbname);
-$query="UPDATE fee SET fic='$edit_fic',fa='$edit_fa' ,fs='$edit_fs',fdate='$edit_fdate' WHERE fid='$id'" ;
+$query="UPDATE classroom SET crn='$edit_crn',ctid='$edit_ctid' WHERE crid='$id'" ;
 mysqli_query($con, $query) or die (mysqli_error($con));
 $status = "Record Updated Successfully. </br></br>
 <a href='view.php'>View Updated Record</a>";
@@ -59,25 +58,20 @@ echo '<p style="color:#FF0000;">'.$status.'</p>';
 <div> 
 <form  method="post" action=""> 
 
+
 <input type="hidden" name="new" value="1" />
-<input name="fid" type="hidden" value="<?php echo $row['fid'];?>" />
+<input name="crid" type="hidden" value="<?php echo $row['crid'];?>" />
 
-<p><input type="text" name="fic" placeholder="Enter Student ID" 
-required value="<?php echo $row['fic'];?>" /></p>
-
-<p><input type="text" name="fa" placeholder="Enter Fee Amount" 
-required value="<?php echo $row['fa'];?>" /></p>
-
-<select name="fs" required value="<?php echo $row['fs'];?>">
-  <option value="PAID">PAID</option>
-  <option value="UNPAID">UNPAID</option>
-</select>
-
-<p><input type="date" name="fdate" placeholder="Enter Fee Date" 
-required value="<?php echo $row['fdate'];?>" /></p>
-
-
+   <div class="input-group">
+    <label>CLASSROOM NAME</label>
+   <input type="text" name="crn" required value="<?php echo $row['crn'];?>" />
+  </div>
+ <div class="input-group">
+    <label>TEACHER ID </label>
+   <input type="text" name="ctid" required value="<?php echo $row['ctid'];?>" />
+  </div>
 <p><input name="submit" type="submit" value="Update" /></p>
+
 </form>
 <?php } ?>
 </div>

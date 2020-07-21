@@ -7,8 +7,8 @@ $dbname = "multi_login";
 
 $con = new mysqli ($host, $dbusername, $dbpassword, $dbname);
 
-$id=$_REQUEST['fid'];
-$query = "SELECT * from fee where fid='".$id."'"; 
+$id=$_REQUEST['aid'];
+$query = "SELECT * from attendance where aid='".$id."'"; 
 $result = mysqli_query($con, $query) or die ( mysqli_error());
 $row = mysqli_fetch_assoc($result);
 ?>
@@ -16,7 +16,6 @@ $row = mysqli_fetch_assoc($result);
 <html>
 <head>
 <meta charset="utf-8">
-<title>Update Record</title>
 <link rel="stylesheet" type="text/css" href="../style.css">
 	<style>
 		.header {
@@ -36,11 +35,11 @@ $row = mysqli_fetch_assoc($result);
 $status = "";
 if(isset($_POST['new']) && $_POST['new']==1)
 {
-$id=$_POST['fid'];
-$edit_fic=$_POST['fic']; 
-$edit_fa=$_POST['fa']; 
-$edit_fs=$_POST['fs']; 
-$edit_fdate=$_POST['fdate']; 
+$id=$_POST['aid'];
+$edit_aic=$_POST['aic']; 
+$edit_asid=$_POST['asid']; 
+$edit_adate=$_POST['adate']; 
+$edit_areason=$_POST['areason']; 
 
 $host = "localhost";
 $dbusername = "root";
@@ -48,7 +47,7 @@ $dbpassword = "";
 $dbname = "multi_login";
 
 $con = new mysqli ($host, $dbusername, $dbpassword, $dbname);
-$query="UPDATE fee SET fic='$edit_fic',fa='$edit_fa' ,fs='$edit_fs',fdate='$edit_fdate' WHERE fid='$id'" ;
+$query="UPDATE attendance SET aic='$edit_aic',asid='$edit_asid' ,adate='$edit_adate',areason='$edit_areason' WHERE aid='$id'" ;
 mysqli_query($con, $query) or die (mysqli_error($con));
 $status = "Record Updated Successfully. </br></br>
 <a href='view.php'>View Updated Record</a>";
@@ -57,27 +56,42 @@ echo '<p style="color:#FF0000;">'.$status.'</p>';
 ?>
 
 <div> 
-<form  method="post" action=""> 
+<form method="post" action=""> 
+
 
 <input type="hidden" name="new" value="1" />
-<input name="fid" type="hidden" value="<?php echo $row['fid'];?>" />
+<input name="aid" type="hidden" value="<?php echo $row['aid'];?>" />
 
-<p><input type="text" name="fic" placeholder="Enter Student ID" 
-required value="<?php echo $row['fic'];?>" /></p>
+<div class="input-group">
 
-<p><input type="text" name="fa" placeholder="Enter Fee Amount" 
-required value="<?php echo $row['fa'];?>" /></p>
+<label>STUDENT ID (IC NUMBER)</label>
+<input type="text" name="aic" required value="<?php echo $row['aic'];?>"/>
+ 
+</div>
 
-<select name="fs" required value="<?php echo $row['fs'];?>">
-  <option value="PAID">PAID</option>
-  <option value="UNPAID">UNPAID</option>
+<div class="input-group">
+<label>SECTION</label>
+<select name="asid" required value="<?php echo $row['asid'];?>"> 
+    <option value="1">LEVEL 1 (AGE 4)</option>
+    <option value="2">LEVEL 2 (AGE 5)</option>
+    <option value="3">LEVEL 3 (AGE 6)</option>
 </select>
+  </div>
+ 
+  <div class="input-group">
+   
+<label>ABSENCE DATE</label>   
+<input type="date" name="adate" required value="<?php echo $row['adate'];?>" />
 
-<p><input type="date" name="fdate" placeholder="Enter Fee Date" 
-required value="<?php echo $row['fdate'];?>" /></p>
-
+</div>
+<div class="input-group">
+<label>ABSENCE REASON</label>
+<input type="text" name="areason"  required value="<?php echo $row['areason'];?>" />
+</div>
 
 <p><input name="submit" type="submit" value="Update" /></p>
+   
+  
 </form>
 <?php } ?>
 </div>
